@@ -1,11 +1,8 @@
 # Deploy Argilla to production droplet
-# 
+#
 # Required secrets (org or repo level):
 #   - PRODUCTION_HOST: IP or hostname of droplet
 #   - PRODUCTION_SSH_KEY: SSH private key for deploy user
-#   - GHCR_PAT: GitHub token for pulling images (if using private registry)
-#
-# Uncomment and configure when ready to deploy
 
 name: Deploy to Production
 
@@ -18,19 +15,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # environment: production
     steps:
-      - name: TODO
-        run: echo "Deployment workflow not yet configured"
-
-#     - name: Deploy to production server
-#       uses: appleboy/ssh-action@v1.2.0
-#       with:
-#         host: ${{ secrets.PRODUCTION_HOST }}
-#         username: github
-#         key: ${{ secrets.PRODUCTION_SSH_KEY }}
-#         script: |
-#           cd ~/access-argilla
-#           git pull origin main
-#           docker compose pull
-#           docker compose up -d
+      - name: Deploy to production server
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.PRODUCTION_HOST }}
+          username: github
+          key: ${{ secrets.PRODUCTION_SSH_KEY }}
+          script: |
+            cd ~/access-argilla
+            git pull origin main
+            docker compose pull
+            docker compose up -d
